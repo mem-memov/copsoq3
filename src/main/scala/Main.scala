@@ -1,16 +1,9 @@
-import scala.annotation.tailrec
+import net.mem_memov.copsoq3.Menu
+import net.mem_memov.copsoq3.Survey
 
 @main
 def main: Unit =
-  showMenu
-  
+  Menu.show(Survey.empty)
 
-@tailrec
-def showMenu: Unit =
-  val command = io.StdIn.readLine("Введите команду: ")
-  println("Hello world!")
-  println(command)
-  if command == "выход" then
-    ()
-  else
-    showMenu
+
+

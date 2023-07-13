@@ -1,5 +1,8 @@
 package net.mem_memov.copsoq3
 
-class Survey {
+case class Survey(questionnaires: Vector[Questionnaire])
 
-}
+
+object Survey:
+  
+  val empty: Survey = Survey(Vector.empty)
