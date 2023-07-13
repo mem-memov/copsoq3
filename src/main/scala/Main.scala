@@ -3,7 +3,8 @@ import net.mem_memov.copsoq3.Survey
 
 @main
 def main: Unit =
-  Menu.show(Survey.empty)
+  Menu.show
+  Menu.select(Survey.empty)
 
 
 
