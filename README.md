@@ -2,4 +2,3 @@
 
 Copenhagen Psychosocial Questionnaire
 Version 3
-
