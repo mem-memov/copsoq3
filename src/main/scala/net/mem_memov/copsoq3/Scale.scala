@@ -1,5 +1,5 @@
 package net.mem_memov.copsoq3
 
-class Scale {
+trait Scale:
 
-}
+  def evaluate(value: String): Option[Int]
