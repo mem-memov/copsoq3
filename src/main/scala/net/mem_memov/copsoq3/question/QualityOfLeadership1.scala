@@ -16,4 +16,4 @@ object QualityOfLeadership1 extends Question:
 
   override val label: String = "Development opportunities"
 
-  override val text: String = "To what extent would you say that your immediate superior makes sure that the members of staff have good development opportunities?"
+  override val text: String = "makes sure that the members of staff have good development opportunities?"

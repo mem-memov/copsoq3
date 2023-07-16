@@ -16,4 +16,4 @@ object QualityOfLeadership2 extends Question:
 
   override val label: String = "Prioritize job satisfaction"
 
-  override val text: String = "To what extent would you say that your immediate superior gives high priority to job satisfaction?"
+  override val text: String = "gives high priority to job satisfaction?"

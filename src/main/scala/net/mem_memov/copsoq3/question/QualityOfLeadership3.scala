@@ -16,4 +16,4 @@ object QualityOfLeadership3 extends Question:
 
   override val label: String = "Work planning"
 
-  override val text: String = "To what extent would you say that your immediate superior is good at work planning?"
+  override val text: String = "is good at work planning?"
