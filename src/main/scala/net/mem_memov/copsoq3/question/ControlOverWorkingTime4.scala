@@ -1,6 +1,6 @@
 package net.mem_memov.copsoq3.question
 
-import net.mem_memov.copsoq3.dimension.ControlOverWorking
+import net.mem_memov.copsoq3.dimension.ControlOverWorkingTime
 import net.mem_memov.copsoq3.scale.Scale1
 import net.mem_memov.copsoq3.{Dimension, Level, Question, Scale}
 
@@ -10,7 +10,7 @@ object ControlOverWorkingTime4 extends Question:
 
   override val level: Level = Level.Middle
 
-  override val dimension: Dimension = ControlOverWorking
+  override val dimension: Dimension = ControlOverWorkingTime
 
   override val scale: Scale = Scale1
 

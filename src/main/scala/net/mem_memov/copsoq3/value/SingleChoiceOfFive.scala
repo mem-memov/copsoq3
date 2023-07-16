@@ -9,8 +9,8 @@ case class SingleChoiceOfFive(options: (Boolean, Boolean, Boolean, Boolean, Bool
 
 object SingleChoiceOfFive:
 
-  val first: SingleChoiceOfFive = SingleChoiceOfFive((True, False, False, False, False))
-  val second: SingleChoiceOfFive = SingleChoiceOfFive((False, True, False, False, False))
-  val third: SingleChoiceOfFive = SingleChoiceOfFive((False, False, True, False, False))
-  val fourth: SingleChoiceOfFive = SingleChoiceOfFive((False, False, False, True, False))
-  val fifth: SingleChoiceOfFive = SingleChoiceOfFive((False, False, False, False, True))
+  val first: SingleChoiceOfFive = SingleChoiceOfFive((true, false, false, false, false))
+  val second: SingleChoiceOfFive = SingleChoiceOfFive((false, true, false, false, false))
+  val third: SingleChoiceOfFive = SingleChoiceOfFive((false, false, true, false, false))
+  val fourth: SingleChoiceOfFive = SingleChoiceOfFive((false, false, false, true, false))
+  val fifth: SingleChoiceOfFive = SingleChoiceOfFive((false, false, false, false, true))

@@ -12,7 +12,7 @@ object Scale5Multiple extends Scale:
  
     val indices = value.split(",").map(_.trim)
     
-    if indices.empty then 
+    if indices.isEmpty then
       Some(MultipleChoiceOfFour.withoutAnySelection)
     else
       val multipleChoiceOfFour = indices.foldLeft(MultipleChoiceOfFour.withoutAnySelection) { (choice, index) =>

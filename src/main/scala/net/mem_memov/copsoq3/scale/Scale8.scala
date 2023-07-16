@@ -11,15 +11,15 @@ object Scale8 extends Scale:
   override def evaluate(value: String): Option[Value] =
 
     value.trim.toLowerCase match
-      case "0" => ZeroToHundred(0)
-      case "10" => ZeroToHundred(10)
-      case "20" => ZeroToHundred(20)
-      case "30" => ZeroToHundred(30)
-      case "40" => ZeroToHundred(40)
-      case "50" => ZeroToHundred(50)
-      case "60" => ZeroToHundred(60)
-      case "70" => ZeroToHundred(70)
-      case "80" => ZeroToHundred(80)
-      case "90" => ZeroToHundred(90)
-      case "100" => ZeroToHundred(100)
+      case "0" => Some(ZeroToHundred(0))
+      case "10" => Some(ZeroToHundred(10))
+      case "20" => Some(ZeroToHundred(20))
+      case "30" => Some(ZeroToHundred(30))
+      case "40" => Some(ZeroToHundred(40))
+      case "50" => Some(ZeroToHundred(50))
+      case "60" => Some(ZeroToHundred(60))
+      case "70" => Some(ZeroToHundred(70))
+      case "80" => Some(ZeroToHundred(80))
+      case "90" => Some(ZeroToHundred(90))
+      case "100" => Some(ZeroToHundred(100))
       case _ => None
