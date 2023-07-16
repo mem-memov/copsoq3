@@ -4,6 +4,6 @@ trait Dimension:
 
   val code: String
 
-  val title: String = ""
+  val titleOption: Option[String] = None
 
   val sectionOption: Option[Section] = None

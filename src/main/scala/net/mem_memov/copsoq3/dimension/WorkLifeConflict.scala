@@ -6,4 +6,4 @@ object WorkLifeConflict extends Dimension:
 
   override val code: String = "WF"
 
-  override val title: String = "The next five questions concern the ways in which your work affects your private life:"
+  override val titleOption: Option[String] = Some("The next five questions concern the ways in which your work affects your private life:")

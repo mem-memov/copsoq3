@@ -6,4 +6,4 @@ object WorkEngagement extends Dimension:
 
   override val code: String = "WE"
 
-  override val title: String = "How often do you experience the following?"
+  override val titleOption: Option[String] = Some("How often do you experience the following?")

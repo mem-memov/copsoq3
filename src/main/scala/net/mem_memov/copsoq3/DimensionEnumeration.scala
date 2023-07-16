@@ -32,7 +32,7 @@ enum DimensionEnumeration(dimension: Dimension):
   case HorizontalTrust extends DimensionEnumeration(dimension.HorizontalTrust)
   case VerticalTrust extends DimensionEnumeration(dimension.VerticalTrust)
   case OrganizationalJustice extends DimensionEnumeration(dimension.OrganizationalJustice)
-//  case GossipAndSlander extends DimensionEnumeration("GS")
+  case GossipAndSlander extends DimensionEnumeration(dimension.GossipAndSlander)
 //  case ConflictsAndQuarrels extends DimensionEnumeration("CQ")
 //  case UnpleasantTeasing extends DimensionEnumeration("UT")
 //  case CyberBullying extends DimensionEnumeration("HSM")

@@ -6,4 +6,4 @@ object QualityOfLeadership extends Dimension:
 
   override val code: String = "QL"
 
-  override val title: String = "To what extent would you say that your immediate superior"
+  override val titleOption: Option[String] = Some("To what extent would you say that your immediate superior")
