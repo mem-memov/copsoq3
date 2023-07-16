@@ -6,6 +6,8 @@ import net.mem_memov.copsoq3.value.MultipleChoiceOfFour
 
 object Scale5Multiple extends Scale:
 
+  override val code: String = "5M"
+
   override def evaluate(value: String): Option[Value] =
  
     val indices = value.split(",").map(_.trim)

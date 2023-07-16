@@ -6,6 +6,8 @@ import net.mem_memov.copsoq3.value.ZeroToHundred
 
 object Scale3 extends Scale:
 
+  override val code: String = "3"
+
   override def evaluate(value: String): Option[Value] =
 
     value.trim.toLowerCase match

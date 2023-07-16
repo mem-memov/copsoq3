@@ -6,6 +6,8 @@ import net.mem_memov.copsoq3.value.ZeroToHundred
 
 object Scale2Reversed extends Scale:
 
+  override val code: String = "2R"
+
   override def evaluate(value: String): Option[Value] =
 
     value.trim.toLowerCase match

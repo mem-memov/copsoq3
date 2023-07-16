@@ -6,6 +6,8 @@ import net.mem_memov.copsoq3.value.SingleChoiceOfFive
 
 object Scale4 extends Scale:
 
+  override val code: String = "4"
+
   override def evaluate(value: String): Option[Value] =
 
     value.trim.toLowerCase match
