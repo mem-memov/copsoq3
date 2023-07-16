@@ -1,16 +1,16 @@
 package net.mem_memov.copsoq3.question
 
-import net.mem_memov.copsoq3.dimension.SexualHarassment
+import net.mem_memov.copsoq3.dimension.Bullying
 import net.mem_memov.copsoq3.scale.Scale5Multiple
 import net.mem_memov.copsoq3.{Dimension, Level, Question, Scale}
 
-object SexualHarassment2 extends Question:
+object Bullying3 extends Question:
 
-  override val code: String = "SH2"
+  override val code: String = "BU3"
 
   override val level: Level = Level.Long
 
-  override val dimension: Dimension = SexualHarassment
+  override val dimension: Dimension = Bullying
 
   override val scale: Scale = Scale5Multiple
 
