@@ -1,18 +1,19 @@
 package net.mem_memov.copsoq3.scale
 
 import net.mem_memov.copsoq3.Scale
+import net.mem_memov.copsoq3.Value
+import net.mem_memov.copsoq3.value.ZeroToHundred
 
 object Scale1 extends Scale:
 
-  override def evaluate(value: String): Option[Int] =
+  override def evaluate(value: String): Option[Value] =
 
     value.trim.toLowerCase match
-      case "always" | "всегда" => Some(100)
-      case "often" | "часто" => Some(75)
-      case "sometimes" | "иногда" => Some(50)
-      case "seldom" | "редко" => Some(25)
-      case "never/hardly ever" | "никогда/крайне редко" => Some(0)
+      case "always" | "всегда" => Some(ZeroToHundred(100))
+      case "often" | "часто" => Some(ZeroToHundred(75))
+      case "sometimes" | "иногда" => Some(ZeroToHundred(50))
+      case "seldom" | "редко" => Some(ZeroToHundred(25))
+      case "never/hardly ever" | "никогда/крайне редко" => Some(ZeroToHundred(0))
       case _ => None
 
 
-    
