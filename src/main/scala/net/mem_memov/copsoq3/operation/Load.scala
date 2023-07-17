@@ -1,6 +1,7 @@
 package net.mem_memov.copsoq3.operation
 
-import net.mem_memov.copsoq3.{Command, DataSource, Operation, Survey}
+import net.mem_memov.copsoq3.format.Testograf
+import net.mem_memov.copsoq3.{Command, DataSource, Operation, QuestionEnumeration, Survey}
 
 case class Load(
   command: Command.Load.type
@@ -13,7 +14,19 @@ case class Load(
     val dataSource = DataSource.csvFile(path)
 
     dataSource.load { row =>
-      println(row)
+      val codeValueOptions = QuestionEnumeration.getAll.toVector.map { questionEnumeration =>
+        val question = questionEnumeration.getQuestion
+        for {
+          columnNumber <- Testograf.getColumnNumber(questionEnumeration)
+          if columnNumber < row.length
+          input = row(columnNumber - 1)
+          value <- question.scale.evaluate(input)
+        } yield
+          (question.code -> value)
+      }
+      codeValueOptions.filter(_.nonEmpty).map { v =>
+        println(v)
+      }
       ()
     }
 

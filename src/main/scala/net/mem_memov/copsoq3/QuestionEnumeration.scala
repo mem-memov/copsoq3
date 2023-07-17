@@ -3,6 +3,7 @@ package net.mem_memov.copsoq3
 import net.mem_memov.copsoq3.question
 
 enum QuestionEnumeration(question: Question):
+  def getQuestion: Question = question
   case QuantitativeDemands1 extends QuestionEnumeration(question.QuantitativeDemands1)
   case QuantitativeDemands2 extends QuestionEnumeration(question.QuantitativeDemands2)
   case QuantitativeDemands3 extends QuestionEnumeration(question.QuantitativeDemands3)
@@ -145,3 +146,15 @@ enum QuestionEnumeration(question: Question):
   case SelfEfficacy4 extends QuestionEnumeration(question.SelfEfficacy4)
   case SelfEfficacy5 extends QuestionEnumeration(question.SelfEfficacy5)
   case SelfEfficacy6 extends QuestionEnumeration(question.SelfEfficacy6)
+
+object QuestionEnumeration:
+
+  def getAll: Array[QuestionEnumeration] =
+
+    QuestionEnumeration.values
+
+
+
+
+
+//  val questionCodes = QuestionEnumeration.values.map(_.question.code)
