@@ -1,7 +1,7 @@
 package net.mem_memov.copsoq3.operation
 
 import net.mem_memov.copsoq3.format.Testograf
-import net.mem_memov.copsoq3.{Command, DataSource, Operation, QuestionEnumeration, Survey}
+import net.mem_memov.copsoq3.{Command, DataSource, Operation, Questionnaire, QuestionEnumeration, Survey}
 
 case class Load(
   command: Command.Load.type
@@ -13,21 +13,23 @@ case class Load(
 
     val dataSource = DataSource.csvFile(path)
 
-    dataSource.load { row =>
-      val codeValueOptions = QuestionEnumeration.getAll.toVector.map { questionEnumeration =>
+    val questionnaires = dataSource.load { row =>
+      QuestionEnumeration.getAll.toVector.foldLeft(Questionnaire.empty) { (questionnaire, questionEnumeration) =>
         val question = questionEnumeration.getQuestion
-        for {
-          columnNumber <- Testograf.getColumnNumber(questionEnumeration)
-          if columnNumber < row.length
-          input = row(columnNumber - 1)
-          value <- question.scale.evaluate(input)
-        } yield
-          (question.code -> value)
+        val columnNumberOption = Testograf.getColumnNumber(questionEnumeration)
+        columnNumberOption match
+          case None =>
+            questionnaire.addValueOption(question.code, None)
+          case Some(columnNumber) =>
+            if columnNumber >= row.length then
+              questionnaire.addValueOption(question.code, None)
+            else
+              val input = row(columnNumber - 1)
+              val valueOption = question.scale.evaluate(input)
+              questionnaire.addValueOption(question.code, valueOption)
       }
-      codeValueOptions.filter(_.nonEmpty).map { v =>
-        println(v)
-      }
-      ()
     }
+
+    println(questionnaires)
 
     survey
