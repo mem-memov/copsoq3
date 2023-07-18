@@ -5,7 +5,11 @@ import net.mem_memov.copsoq3.QuestionEnumeration
 
 object Testograf extends Format:
 
-  def getColumnNumber(questionEnumeration: QuestionEnumeration): Option[Int] =
+  override val columnOffset: Int = 22
+
+  override val rowOffset: Int = 1
+
+  override def getColumnNumber(questionEnumeration: QuestionEnumeration): Option[Int] =
 
     questionEnumeration match {
       case QuestionEnumeration.QuantitativeDemands1 => None

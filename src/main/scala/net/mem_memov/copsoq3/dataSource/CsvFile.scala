@@ -20,7 +20,7 @@ case class CsvFile(path: String) extends DataSource:
       rows: Vector[A]
     ): Vector[A] =
       if lines.hasNext then
-        val columns = lines.next().split(",").map(_.trim).toVector
+        val columns = lines.next().split(";").map(_.trim).toVector
         val row = processRow(columns)
         accumulate(lines, processRow, rows.appended(row))
       else
