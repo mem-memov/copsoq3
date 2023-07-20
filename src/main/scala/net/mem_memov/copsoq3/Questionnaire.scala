@@ -8,6 +8,10 @@ case class Questionnaire(valueOptions: Map[String, Option[Value]]):
 
     this.copy(valueOptions = modifiedValueOptions)
 
+  def map[A](f: ((String, Option[Value])) => A): Vector[A] =
+
+    valueOptions.map(f).toVector
+
 
 object Questionnaire:
 

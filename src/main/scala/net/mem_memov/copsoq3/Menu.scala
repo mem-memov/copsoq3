@@ -21,3 +21,6 @@ object Menu:
       case load: Command.Load.type =>
         val modifiedSurvey = load.toOperation.run(survey)
         select(modifiedSurvey)
+      case save: Command.Save.type =>
+        save.toOperation.run(survey)
+        select(survey)

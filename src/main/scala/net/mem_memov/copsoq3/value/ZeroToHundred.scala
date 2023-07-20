@@ -6,3 +6,5 @@ case class ZeroToHundred(number: Int) extends Value:
   
   require(number >= 0 && number <= 100)
 
+  override def toString: String = number.toString
+

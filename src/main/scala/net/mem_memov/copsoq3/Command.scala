@@ -22,8 +22,15 @@ object Command:
     val name: String = "загрузить"
     val description: String = "загружает файл с данными"
 
+  object Save extends Command:
+    import net.mem_memov.copsoq3.operation.Save as ExportOperation
+    override def toOperation: Operation = ExportOperation(Save)
+    val name: String = "выгрузить"
+    val description: String = "выгружает данные в файл"
+
   def apply(name: String): Command =
     name match
       case Exit.name => Exit
       case Load.name => Load
+      case Save.name => Save
       case _ => Unknown(name)

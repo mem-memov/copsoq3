@@ -9,11 +9,13 @@ case class Load(
 
   override def run(survey: Survey): Survey =
 
+    println("Загрузка файла")
+
     val path = io.StdIn.readLine("Укажите путь к файлу в формате CSV: ")
 
     val dataSource = DataSource.csvFile(path)
 
-    val questionnaires = dataSource.load { row =>
+    val questionnaires = dataSource.read { row =>
       QuestionEnumeration.getAll.toVector.foldLeft(Questionnaire.empty) { (questionnaire, questionEnumeration) =>
         val question = questionEnumeration.getQuestion
         val columnNumberOption = Testograf.getColumnNumber(questionEnumeration)
@@ -30,6 +32,7 @@ case class Load(
       }
     }
 
-    println(questionnaires)
+    questionnaires.foldLeft(survey){ (survey, questionnaire) =>
+      survey.addQuestionnaire(questionnaire)
+    }
 
-    survey

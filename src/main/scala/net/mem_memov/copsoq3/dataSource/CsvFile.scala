@@ -1,13 +1,14 @@
 package net.mem_memov.copsoq3.dataSource
 
-import net.mem_memov.copsoq3.DataSource
+import net.mem_memov.copsoq3.{DataSource, Survey}
 
 import scala.annotation.tailrec
 import scala.collection.Iterator
+import java.io._
 
 case class CsvFile(path: String) extends DataSource:
 
-  def load[A](
+  def read[A](
     processRow: Vector[String] => A
   ): Vector[A] =
 
@@ -19,6 +20,7 @@ case class CsvFile(path: String) extends DataSource:
       processRow: Vector[String] => A,
       rows: Vector[A]
     ): Vector[A] =
+
       if lines.hasNext then
         val columns = lines.next().split(";").map(_.trim).toVector
         val row = processRow(columns)
@@ -36,3 +38,19 @@ case class CsvFile(path: String) extends DataSource:
 
     rows
 
+  override def write(survey: Survey): Unit =
+
+    val file = new File(path)
+    val bufferedWriter = new BufferedWriter(new FileWriter(file))
+
+    survey.foreach { questionnaire =>
+      val cells = questionnaire.map { (questionCode, valueOption) =>
+        valueOption match
+          case None => ""
+          case Some(value) => value.toString
+      }
+      val line = cells.mkString(";") + "\n"
+      bufferedWriter.write(line)
+    }
+
+    bufferedWriter.close()
