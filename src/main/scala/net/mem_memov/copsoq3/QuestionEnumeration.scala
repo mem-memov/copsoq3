@@ -157,6 +157,14 @@ object QuestionEnumeration:
 
     QuestionEnumeration.values
 
+  def toCodeQuestionMap: Map[String, Question] =
+
+    getAll.map { questionEnumeration =>
+      val questionCode = questionEnumeration.getQuestion.code
+      val question = questionEnumeration.getQuestion
+      questionCode -> question
+    }.toMap
+
 
 
 
