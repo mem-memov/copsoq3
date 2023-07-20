@@ -43,8 +43,17 @@ case class CsvFile(path: String) extends DataSource:
     val file = new File(path)
     val bufferedWriter = new BufferedWriter(new FileWriter(file))
 
+    survey.forFirst { questionnaireOption =>
+      for {
+        questionnaire <- questionnaireOption
+      } yield
+        val questionCodes = questionnaire.map ((questionCode, _) => questionCode)
+        val line = questionCodes.mkString(";") + "\n"
+        bufferedWriter.write(line)
+    }
+
     survey.foreach { questionnaire =>
-      val cells = questionnaire.map { (questionCode, valueOption) =>
+      val cells = questionnaire.map { (_, valueOption) =>
         valueOption match
           case None => ""
           case Some(value) => value.toString

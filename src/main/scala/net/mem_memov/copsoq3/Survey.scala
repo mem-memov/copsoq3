@@ -12,6 +12,10 @@ case class Survey(questionnaires: Vector[Questionnaire]):
 
     questionnaires.foreach(f)
 
+  def forFirst(f: Option[Questionnaire] => Unit): Unit =
+
+    f(questionnaires.headOption)
+
 object Survey:
   
   val empty: Survey = Survey(Vector.empty)
