@@ -1,6 +1,6 @@
 package net.mem_memov.copsoq3.question
 
-import net.mem_memov.copsoq3.dimension.QuantitativeDemands
+import net.mem_memov.copsoq3.dimension.VariationOfWork
 import net.mem_memov.copsoq3.scale.Scale1
 import net.mem_memov.copsoq3.{Dimension, Level, Question, Scale}
 
@@ -10,7 +10,7 @@ object VariationOfWork1 extends Question:
 
   override val level: Level = Level.Long
 
-  override val dimension: Dimension = QuantitativeDemands
+  override val dimension: Dimension = VariationOfWork
 
   override val scale: Scale = Scale1
 
