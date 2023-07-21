@@ -15,7 +15,11 @@ case class Load(
 
     val dataSource = DataSource.csvFile(path)
 
-    val questionnaires = dataSource.read { row =>
+    val headerRowOption = dataSource.readFirst { row =>
+
+    }
+
+    val questionnaires = dataSource.read { (rowIndex, row) =>
       QuestionEnumeration.getAll.toVector.foldLeft(Questionnaire.empty) { (questionnaire, questionEnumeration) =>
         val question = questionEnumeration.getQuestion
         val columnNumberOption = Testograf.getColumnNumber(questionEnumeration)

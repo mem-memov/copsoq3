@@ -5,8 +5,12 @@ import net.mem_memov.copsoq3.dataSource.CsvFile
 trait DataSource:
 
   def read[A](
-    processRow: Vector[String] => A
+    processRow: (Int, Vector[String]) => A
   ): Vector[A]
+
+  def readFirst[A](
+    processRow: Vector[String] => A
+  ): Option[A]
 
   def write(survey: Survey): Unit
 

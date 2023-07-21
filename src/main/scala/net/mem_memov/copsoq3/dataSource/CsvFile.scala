@@ -8,8 +8,8 @@ import java.io._
 
 case class CsvFile(path: String) extends DataSource:
 
-  def read[A](
-    processRow: Vector[String] => A
+  override def read[A](
+    processRow: (Int, Vector[String]) => A
   ): Vector[A] =
 
     val bufferedSource = io.Source.fromFile(path)
@@ -17,19 +17,33 @@ case class CsvFile(path: String) extends DataSource:
     @tailrec
     def accumulate(
       lines: Iterator[String],
-      processRow: Vector[String] => A,
+      rowIndex: Int,
+      incompleteRowOption: Option[Vector[String]],
+      processRow: (Int, Vector[String]) => A,
       rows: Vector[A]
     ): Vector[A] =
 
       if lines.hasNext then
         val columns = lines.next().split(";").map(_.trim).toVector
-        val row = processRow(columns)
-        accumulate(lines, processRow, rows.appended(row))
+        incompleteRowOption match
+          case Some(incompleteRow) =>
+            val rest =
+            val modifiedLastCell = lines.next()
+
+
+          case None =>
+            if columns.last.startsWith("\"") then
+              accumulate(lines, rowIndex, Some(columns), processRow, rows.appended(row))
+            else
+              val row = processRow(rowIndex, columns)
+              accumulate(lines, rowIndex+1, None, processRow, rows.appended(row))
       else
         rows
 
     val rows = accumulate(
       bufferedSource.getLines,
+      0,
+      None,
       processRow,
       Vector()
     )
@@ -37,6 +51,21 @@ case class CsvFile(path: String) extends DataSource:
     bufferedSource.close
 
     rows
+
+  override def readFirst[A](processRow: Vector[String] => A): Option[A] =
+
+    val bufferedSource = io.Source.fromFile(path)
+    val lines = bufferedSource.getLines
+
+    val rowOption = if lines.hasNext then
+      val row = processRow(columns)
+      Some(row)
+    else
+      None
+
+    bufferedSource.close
+
+    rowOption
 
   override def write(survey: Survey): Unit =
 
