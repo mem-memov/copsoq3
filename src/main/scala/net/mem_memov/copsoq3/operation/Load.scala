@@ -1,6 +1,5 @@
 package net.mem_memov.copsoq3.operation
 
-import net.mem_memov.copsoq3.format.Testograf
 import net.mem_memov.copsoq3.{Command, DataSource, Operation, Questionnaire, QuestionEnumeration, Survey}
 
 case class Load(
@@ -15,28 +14,44 @@ case class Load(
 
     val dataSource = DataSource.csvFile(path)
 
-    val headerRowOption = dataSource.readFirst { row =>
-
-    }
-
-    val questionnaires = dataSource.read { (rowIndex, row) =>
-      QuestionEnumeration.getAll.toVector.foldLeft(Questionnaire.empty) { (questionnaire, questionEnumeration) =>
-        val question = questionEnumeration.getQuestion
-        val columnNumberOption = Testograf.getColumnNumber(questionEnumeration)
-        columnNumberOption match
+    val codeQuestionMap = QuestionEnumeration.toCodeQuestionMap
+    val questionColumnMapOption = dataSource.readFirst { row =>
+      val codeQuestionOptions = row.map { cell =>
+        codeQuestionMap.get(cell) match
+          case Some(codeQuestion) =>
+            Some(codeQuestion)
           case None =>
-            questionnaire.addValueOption(question.code, None)
-          case Some(columnNumber) =>
-            if columnNumber >= row.length then
-              questionnaire.addValueOption(question.code, None)
+            val questionCodes = codeQuestionMap.keys.filter(key => cell.contains("[" + key + "]"))
+            if questionCodes.isEmpty then
+              None
             else
-              val input = row(columnNumber - 1)
-              val valueOption = question.scale.evaluate(input)
-              questionnaire.addValueOption(question.code, valueOption)
+              codeQuestionMap.get(questionCodes.head)
       }
+      codeQuestionOptions.zipWithIndex.filter(_._1.nonEmpty).map(pair => (pair._1.get, pair._2)).toMap
     }
 
-    questionnaires.foldLeft(survey){ (survey, questionnaire) =>
-      survey.addQuestionnaire(questionnaire)
-    }
+    questionColumnMapOption match
+      case None =>
+        survey
+      case Some(questionColumnMap) =>
+        val questionnaires = dataSource.read { (rowIndex, row) =>
+          QuestionEnumeration.getAll.toVector.foldLeft(Questionnaire.empty) { (questionnaire, questionEnumeration) =>
+            val question = questionEnumeration.getQuestion
+            val columnNumberOption = questionColumnMap.get(question)
+            columnNumberOption match
+              case None =>
+                questionnaire.addValueOption(question.code, None)
+              case Some(columnNumber) =>
+                if columnNumber >= row.length then
+                  questionnaire.addValueOption(question.code, None)
+                else
+                  val input = row(columnNumber - 1)
+                  val valueOption = question.scale.evaluate(input)
+                  questionnaire.addValueOption(question.code, valueOption)
+          }
+        }
+
+        questionnaires.foldLeft(survey){ (survey, questionnaire) =>
+          survey.addQuestionnaire(questionnaire)
+        }
 
