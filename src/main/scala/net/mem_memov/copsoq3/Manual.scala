@@ -5,5 +5,5 @@ object Manual:
   val content: String =
     Command.Exit.name + " - " + Command.Exit.description + "\n"
     + Command.Load.name + " - " + Command.Load.description + "\n"
-    + Command.Save.name + " - " + Command.Exit.description
+    + Command.Save.name + " - " + Command.Save.description
     

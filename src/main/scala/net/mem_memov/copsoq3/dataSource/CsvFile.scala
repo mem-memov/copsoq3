@@ -27,13 +27,16 @@ case class CsvFile(path: String) extends DataSource:
         val columns = lines.next().split(";").map(_.trim).toVector
         incompleteRowOption match
           case Some(incompleteRow) =>
-            val rest =
-            val modifiedLastCell = lines.next()
-
-
+            if columns.head.endsWith("\"") then
+              val completeColumns = incompleteRow.init :+ (incompleteRow.last + columns.head) :++ columns.tail
+              val row = processRow(rowIndex, completeColumns)
+              accumulate(lines, rowIndex+1, None, processRow, rows.appended(row))
+            else
+              val addedColumns = incompleteRow.init :+ (incompleteRow.last + columns.head)
+              accumulate(lines, rowIndex, Some(addedColumns), processRow, rows)
           case None =>
             if columns.last.startsWith("\"") then
-              accumulate(lines, rowIndex, Some(columns), processRow, rows.appended(row))
+              accumulate(lines, rowIndex, Some(columns), processRow, rows)
             else
               val row = processRow(rowIndex, columns)
               accumulate(lines, rowIndex+1, None, processRow, rows.appended(row))
@@ -58,6 +61,7 @@ case class CsvFile(path: String) extends DataSource:
     val lines = bufferedSource.getLines
 
     val rowOption = if lines.hasNext then
+      val columns = lines.next().split(";").map(_.trim).toVector
       val row = processRow(columns)
       Some(row)
     else
