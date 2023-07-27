@@ -98,14 +98,16 @@ case class CsvFile(path: String) extends DataSource:
       incompleteRowOption match
         case Some(incompleteRow) =>
           if columns.head.endsWith("\"") then
-            val completeColumns = incompleteRow.init :+ (incompleteRow.last + columns.head) :++ columns.tail
+            val completeCell = incompleteRow.last + columns.head
+            val completeColumns = incompleteRow.init :+ completeCell :++ columns.tail
             val row = processRow(rowIndex, completeColumns)
             accumulate(lines, rowIndex+1, None, processRow, rows.appended(row))
           else
-            val addedColumns = incompleteRow.init :+ (incompleteRow.last + columns.head)
+            val continuedCell = incompleteRow.last + columns.head
+            val addedColumns = incompleteRow.init :+ continuedCell
             accumulate(lines, rowIndex, Some(addedColumns), processRow, rows)
         case None =>
-          if columns.last.startsWith("\"") then
+          if columns.last.startsWith("\"") && !columns.last.endsWith("\"") then
             accumulate(lines, rowIndex, Some(columns), processRow, rows)
           else
             val row = processRow(rowIndex, columns)
