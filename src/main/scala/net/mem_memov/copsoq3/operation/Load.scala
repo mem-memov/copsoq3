@@ -18,7 +18,7 @@ case class Load(
       case None =>
         survey
       case Some(questionColumnMap) =>
-        val questionnaires = Load.readQuestionnaires(dataSource, questionColumnMap)
+        val questionnaires = Load.readQuestionnaires(dataSource, questionColumnMap).tail
 
         questionnaires.foldLeft(survey){ (survey, questionnaire) =>
           survey.addQuestionnaire(questionnaire)
