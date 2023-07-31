@@ -17,4 +17,6 @@ object Scale2Dagger extends Scale:
       case "to a small extent" | "в незначительной степени" => Some(ZeroToHundred(25))
       case "to a very small extent" | "в весьма незначительной степени" => Some(ZeroToHundred(0))
       case "i do not have a supervisor" | "у меня нет руководителя" => None
-      case _ => None
+      case other =>
+        reportUnexpectedValue(other)
+        None

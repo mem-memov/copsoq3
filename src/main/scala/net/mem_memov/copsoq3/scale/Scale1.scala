@@ -16,6 +16,8 @@ object Scale1 extends Scale:
       case "sometimes" | "иногда" => Some(ZeroToHundred(50))
       case "seldom" | "редко" => Some(ZeroToHundred(25))
       case "never/hardly ever" | "никогда/крайне редко" => Some(ZeroToHundred(0))
-      case _ => None
+      case other => 
+        reportUnexpectedValue(other)
+        None
 
 

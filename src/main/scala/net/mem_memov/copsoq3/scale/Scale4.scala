@@ -16,4 +16,6 @@ object Scale4 extends Scale:
       case "yes, monthly" | "да, ежемесячно" => Some(SingleChoiceOfFive.third)
       case "yes, a few times" | "да, несколько раз" => Some(SingleChoiceOfFive.fourth)
       case "no" | "нет" => Some(SingleChoiceOfFive.fifth)
-      case _ => None
+      case other =>
+        reportUnexpectedValue(other)
+        None

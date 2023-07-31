@@ -6,6 +6,13 @@ trait Scale:
 
   def evaluate(value: String): Option[Value]
 
+  def reportUnexpectedValue(value: String): Unit =
+
+    if value != "" then
+      println("Unknown value in scale " + code + ": \"" + value + "\"")
+    else
+      ()
+
 object Scale:
 
   def prepareValue(value: String): String =
@@ -16,3 +23,4 @@ object Scale:
       .replace(" /", "/")
       .replace("/ ", "/")
       .replace("  ", " ")
+

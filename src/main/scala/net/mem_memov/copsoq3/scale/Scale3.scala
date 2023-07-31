@@ -16,4 +16,6 @@ object Scale3 extends Scale:
       case "sometimes" | "иногда" => Some(ZeroToHundred(50))
       case "often" | "часто" => Some(ZeroToHundred(75))
       case "always" | "всегда" => Some(ZeroToHundred(0))
-      case _ => None
+      case other =>
+        reportUnexpectedValue(other)
+        None

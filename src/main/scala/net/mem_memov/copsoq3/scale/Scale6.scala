@@ -16,4 +16,6 @@ object Scale6 extends Scale:
       case "neither/nor" | "затрудняюсь ответить" => Some(ZeroToHundred(50))
       case "unsatisfied" | "не удовлетворен" => Some(ZeroToHundred(25))
       case "very unsatisfied" | "весьма не удовлетворен" => Some(ZeroToHundred(0))
-      case _ => None
+      case other =>
+        reportUnexpectedValue(other)
+        None

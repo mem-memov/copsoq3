@@ -17,4 +17,6 @@ object Scale1DoubleDagger extends Scale:
       case "seldom" | "редко" => Some(ZeroToHundred(25))
       case "never/hardly ever" | "никогда/крайне редко" => Some(ZeroToHundred(0))
       case "i do not have colleagues" | "у меня нет коллег" => None
-      case _ => None
+      case other =>
+        reportUnexpectedValue(other)
+        None

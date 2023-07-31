@@ -15,4 +15,6 @@ object Scale10 extends Scale:
       case "fits quite well" | "достаточно хорошо" => Some(ZeroToHundred(67))
       case "fits a little bit" | "немного" => Some(ZeroToHundred(33))
       case "does not fit" | "не подходят" => Some(ZeroToHundred(0))
-      case _ => None
+      case other =>
+        reportUnexpectedValue(other)
+        None

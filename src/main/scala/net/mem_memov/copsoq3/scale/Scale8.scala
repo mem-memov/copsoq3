@@ -22,4 +22,6 @@ object Scale8 extends Scale:
       case "80" => Some(ZeroToHundred(80))
       case "90" => Some(ZeroToHundred(90))
       case "100" => Some(ZeroToHundred(100))
-      case _ => None
+      case other =>
+        reportUnexpectedValue(other)
+        None

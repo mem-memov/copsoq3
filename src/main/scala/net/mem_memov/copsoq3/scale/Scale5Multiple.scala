@@ -21,7 +21,9 @@ object Scale5Multiple extends Scale:
           case "2" => choice.withSecond
           case "3" => choice.withThird
           case "4" => choice.withFourth
-          case _ => choice
+          case other =>
+            reportUnexpectedValue(other)
+            choice
       }
       Some(multipleChoiceOfFour)
     

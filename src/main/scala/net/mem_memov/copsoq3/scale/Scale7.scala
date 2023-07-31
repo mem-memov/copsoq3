@@ -16,4 +16,6 @@ object Scale7 extends Scale:
       case "good" | "хорошее" => Some(ZeroToHundred(50))
       case "fair" | "удовлетворительное" => Some(ZeroToHundred(25))
       case "poor" | "плохое" => Some(ZeroToHundred(0))
-      case _ => None
+      case other =>
+        reportUnexpectedValue(other)
+        None

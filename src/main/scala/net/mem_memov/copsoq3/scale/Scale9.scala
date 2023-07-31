@@ -16,4 +16,6 @@ object Scale9 extends Scale:
       case "part of the time" | "часть времени" => Some(ZeroToHundred(50))
       case "a small part of the time" | "незначительную часть времени" => Some(ZeroToHundred(25))
       case "not at all" | "никогда" => Some(ZeroToHundred(0))
-      case _ => None
+      case other =>
+        reportUnexpectedValue(other)
+        None

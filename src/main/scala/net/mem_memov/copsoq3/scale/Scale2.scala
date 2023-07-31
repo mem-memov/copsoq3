@@ -16,4 +16,6 @@ object Scale2 extends Scale:
       case "somewhat" | "в некоторой степени" => Some(ZeroToHundred(50))
       case "to a small extent" | "в незначительной степени" => Some(ZeroToHundred(25))
       case "to a very small extent" | "в весьма незначительной степени" => Some(ZeroToHundred(0))
-      case _ => None
+      case other =>
+        reportUnexpectedValue(other)
+        None
