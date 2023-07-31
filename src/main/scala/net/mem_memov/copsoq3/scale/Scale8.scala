@@ -1,14 +1,13 @@
 package net.mem_memov.copsoq3.scale
 
-import net.mem_memov.copsoq3.Scale
-import net.mem_memov.copsoq3.Value
+import net.mem_memov.copsoq3.{Question, Scale, Value}
 import net.mem_memov.copsoq3.value.ZeroToHundred
 
 object Scale8 extends Scale:
 
   override val code: String = "8"
 
-  override def evaluate(value: String): Option[Value] =
+  override def evaluate(value: String, question: Question, rowIndex: Int): Option[Value] =
 
     Scale.prepareValue(value) match
       case "0" => Some(ZeroToHundred(0))
@@ -23,5 +22,5 @@ object Scale8 extends Scale:
       case "90" => Some(ZeroToHundred(90))
       case "100" => Some(ZeroToHundred(100))
       case other =>
-        reportUnexpectedValue(other)
+        reportUnexpectedValue(other, question, rowIndex)
         None

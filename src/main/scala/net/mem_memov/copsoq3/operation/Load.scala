@@ -61,6 +61,6 @@ object Load:
             questionnaire.addValueOption(question.code, None)
           else
             val input = row(columnNumber - 1)
-            val valueOption = question.scale.evaluate(input)
+            val valueOption = question.scale.evaluate(input, question, rowIndex)
             questionnaire.addValueOption(question.code, valueOption)
     }
