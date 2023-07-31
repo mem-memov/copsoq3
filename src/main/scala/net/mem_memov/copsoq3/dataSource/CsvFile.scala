@@ -58,7 +58,7 @@ case class CsvFile(path: String) extends DataSource:
             case None => ""
           }
         }
-        val line = dimensionCodes.mkString(";") + "\n"
+        val line = dimensionCodes.mkString(CsvFile.cellSeparator) + "\n"
         bufferedWriter.write(line)
     }
 
@@ -67,7 +67,7 @@ case class CsvFile(path: String) extends DataSource:
         questionnaire <- questionnaireOption
       } yield
         val questionCodes = questionnaire.map ((questionCode, _) => questionCode)
-        val line = questionCodes.mkString(";") + "\n"
+        val line = questionCodes.mkString(CsvFile.cellSeparator) + "\n"
         bufferedWriter.write(line)
     }
 
@@ -77,7 +77,7 @@ case class CsvFile(path: String) extends DataSource:
           case None => ""
           case Some(value) => value.toString
       }
-      val line = cells.mkString(";") + "\n"
+      val line = cells.mkString(CsvFile.cellSeparator) + "\n"
       bufferedWriter.write(line)
     }
 
@@ -94,10 +94,10 @@ case class CsvFile(path: String) extends DataSource:
   ): Vector[A] =
 
     if lines.hasNext then
-      val columns = lines.next().split(";").map(_.trim).toVector
+      val columns = lines.next().split(CsvFile.cellSeparator).map(_.trim).toVector
       incompleteRowOption match
         case Some(incompleteRow) =>
-          if columns.head.endsWith("\"") then
+          if columns.head.endsWith(CsvFile.quote) then
             val completeCell = incompleteRow.last + columns.head
             val completeColumns = incompleteRow.init :+ completeCell :++ columns.tail
             val row = processRow(rowIndex, completeColumns)
@@ -107,10 +107,15 @@ case class CsvFile(path: String) extends DataSource:
             val addedColumns = incompleteRow.init :+ continuedCell
             accumulate(lines, rowIndex, Some(addedColumns), processRow, rows)
         case None =>
-          if columns.last.startsWith("\"") && !columns.last.endsWith("\"") then
+          if columns.last.startsWith(CsvFile.quote) && !columns.last.endsWith(CsvFile.quote) then
             accumulate(lines, rowIndex, Some(columns), processRow, rows)
           else
             val row = processRow(rowIndex, columns)
             accumulate(lines, rowIndex+1, None, processRow, rows.appended(row))
     else
       rows
+
+object CsvFile:
+
+  val cellSeparator = ";"
+  val quote = "\"";
