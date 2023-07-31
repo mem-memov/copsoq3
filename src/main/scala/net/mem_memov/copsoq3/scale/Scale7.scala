@@ -10,10 +10,10 @@ object Scale7 extends Scale:
 
   override def evaluate(value: String): Option[Value] =
 
-    value.trim.toLowerCase match
-      case "отличное" => Some(ZeroToHundred(100))
-      case "очень хорошее" => Some(ZeroToHundred(75))
-      case "хорошее" => Some(ZeroToHundred(50))
-      case "удовлетворительное" => Some(ZeroToHundred(25))
-      case "плохое" => Some(ZeroToHundred(0))
+    Scale.prepareValue(value) match
+      case "excellent" | "отличное" => Some(ZeroToHundred(100))
+      case "very good" | "очень хорошее" => Some(ZeroToHundred(75))
+      case "good" | "хорошее" => Some(ZeroToHundred(50))
+      case "fair" | "удовлетворительное" => Some(ZeroToHundred(25))
+      case "poor" | "плохое" => Some(ZeroToHundred(0))
       case _ => None

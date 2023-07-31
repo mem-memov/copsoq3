@@ -10,7 +10,7 @@ object Scale8 extends Scale:
 
   override def evaluate(value: String): Option[Value] =
 
-    value.trim.toLowerCase match
+    Scale.prepareValue(value) match
       case "0" => Some(ZeroToHundred(0))
       case "10" => Some(ZeroToHundred(10))
       case "20" => Some(ZeroToHundred(20))

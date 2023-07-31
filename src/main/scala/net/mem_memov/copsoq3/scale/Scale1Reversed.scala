@@ -10,10 +10,10 @@ object Scale1Reversed extends Scale:
 
   override def evaluate(value: String): Option[Value] =
 
-    value.trim.toLowerCase match
+    Scale.prepareValue(value) match
       case "always" | "всегда" => Some(ZeroToHundred(0))
       case "often" | "часто" => Some(ZeroToHundred(25))
       case "sometimes" | "иногда" => Some(ZeroToHundred(50))
       case "seldom" | "редко" => Some(ZeroToHundred(75))
-      case "никогда/крайне редко" => Some(ZeroToHundred(100))
+      case "never/hardly ever" | "никогда/крайне редко" => Some(ZeroToHundred(100))
       case _ => None

@@ -10,11 +10,11 @@ object Scale1SectionSign extends Scale:
 
   override def evaluate(value: String): Option[Value] =
 
-    value.trim.toLowerCase match
+    Scale.prepareValue(value) match
       case "always" | "всегда" => Some(ZeroToHundred(100))
       case "often" | "часто" => Some(ZeroToHundred(75))
       case "sometimes" | "иногда" => Some(ZeroToHundred(50))
       case "seldom" | "редко" => Some(ZeroToHundred(25))
       case "never/hardly ever" | "никогда/крайне редко" => Some(ZeroToHundred(0))
-      case "у меня нет начальника/коллег" => None
+      case "i do not have a superior/colleagues" | "у меня нет начальника/коллег" => None
       case _ => None

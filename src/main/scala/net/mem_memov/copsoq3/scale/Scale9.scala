@@ -10,10 +10,10 @@ object Scale9 extends Scale:
 
   override def evaluate(value: String): Option[Value] =
 
-    value.trim.toLowerCase match
-      case "всё время" => Some(ZeroToHundred(100))
-      case "значительную часть времени" => Some(ZeroToHundred(75))
-      case "часть времени" => Some(ZeroToHundred(50))
-      case "незначительную часть времени" => Some(ZeroToHundred(25))
-      case "никогда" => Some(ZeroToHundred(0))
+    Scale.prepareValue(value) match
+      case "all the time" | "всё время" => Some(ZeroToHundred(100))
+      case "a large part of the time" | "значительную часть времени" => Some(ZeroToHundred(75))
+      case "part of the time" | "часть времени" => Some(ZeroToHundred(50))
+      case "a small part of the time" | "незначительную часть времени" => Some(ZeroToHundred(25))
+      case "not at all" | "никогда" => Some(ZeroToHundred(0))
       case _ => None

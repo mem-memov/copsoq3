@@ -10,10 +10,10 @@ object Scale3 extends Scale:
 
   override def evaluate(value: String): Option[Value] =
 
-    value.trim.toLowerCase match
-      case "никогда" => Some(ZeroToHundred(0))
-      case "редко" => Some(ZeroToHundred(25))
-      case "иногда" => Some(ZeroToHundred(50))
-      case "часто" => Some(ZeroToHundred(75))
-      case "всегда" => Some(ZeroToHundred(0))
+    Scale.prepareValue(value) match
+      case "never" | "никогда" => Some(ZeroToHundred(0))
+      case "seldom" | "редко" => Some(ZeroToHundred(25))
+      case "sometimes" | "иногда" => Some(ZeroToHundred(50))
+      case "often" | "часто" => Some(ZeroToHundred(75))
+      case "always" | "всегда" => Some(ZeroToHundred(0))
       case _ => None

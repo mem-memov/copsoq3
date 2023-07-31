@@ -10,11 +10,11 @@ object Scale1DoubleDagger extends Scale:
 
   override def evaluate(value: String): Option[Value] =
 
-    value.trim.toLowerCase match
+    Scale.prepareValue(value) match
       case "always" | "всегда" => Some(ZeroToHundred(100))
       case "often" | "часто" => Some(ZeroToHundred(75))
       case "sometimes" | "иногда" => Some(ZeroToHundred(50))
       case "seldom" | "редко" => Some(ZeroToHundred(25))
-      case "никогда/крайне редко" => Some(ZeroToHundred(0))
-      case "у меня нет коллег" => None
+      case "never/hardly ever" | "никогда/крайне редко" => Some(ZeroToHundred(0))
+      case "i do not have colleagues" | "у меня нет коллег" => None
       case _ => None

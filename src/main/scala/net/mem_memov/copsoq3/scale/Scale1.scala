@@ -10,7 +10,7 @@ object Scale1 extends Scale:
 
   override def evaluate(value: String): Option[Value] =
 
-    value.trim.toLowerCase match
+    Scale.prepareValue(value) match
       case "always" | "всегда" => Some(ZeroToHundred(100))
       case "often" | "часто" => Some(ZeroToHundred(75))
       case "sometimes" | "иногда" => Some(ZeroToHundred(50))

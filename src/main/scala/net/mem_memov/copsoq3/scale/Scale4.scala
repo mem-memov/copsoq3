@@ -10,10 +10,10 @@ object Scale4 extends Scale:
 
   override def evaluate(value: String): Option[Value] =
 
-    value.trim.toLowerCase match
-      case "Yes, daily" => Some(SingleChoiceOfFive.first)
-      case "Yes, weekly" => Some(SingleChoiceOfFive.second)
-      case "Yes, monthly" => Some(SingleChoiceOfFive.third)
-      case "Yes, a few times" => Some(SingleChoiceOfFive.fourth)
-      case "No" => Some(SingleChoiceOfFive.fifth)
+    Scale.prepareValue(value) match
+      case "yes, daily" | "да, ежедневно" => Some(SingleChoiceOfFive.first)
+      case "yes, weekly" | "да, еженедельно" => Some(SingleChoiceOfFive.second)
+      case "yes, monthly" | "да, ежемесячно" => Some(SingleChoiceOfFive.third)
+      case "yes, a few times" | "да, несколько раз" => Some(SingleChoiceOfFive.fourth)
+      case "no" | "нет" => Some(SingleChoiceOfFive.fifth)
       case _ => None
